@@ -44,7 +44,7 @@ CI Pipeline → AWS CDK → CloudFormation → AWS Infrastructure
 - Secure IAM role and permission configuration
 - Version-controlled cloud deployments
 - Scalable architecture patterns
-- Production-ready DevOps workflow design
+- Production-ready workflow design
 
 ---
 
@@ -65,7 +65,7 @@ CI Pipeline → AWS CDK → CloudFormation → AWS Infrastructure
 - Infrastructure as Code (IaC)
 - Secure cloud deployments
 - CI/CD pipeline integration
-- DevOps best practices
+- Industry best practices
 
 ---
 
