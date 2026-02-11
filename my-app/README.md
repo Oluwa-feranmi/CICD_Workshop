@@ -48,7 +48,7 @@ This module represents the **test stage** of the pipeline, ensuring all applicat
 - CI pipeline engineering
 - Deployment automation
 - Environment isolation strategies
-- DevOps testing workflows
+- Workflows testing
 - Release safety engineering
 
 ---
@@ -56,6 +56,6 @@ This module represents the **test stage** of the pipeline, ensuring all applicat
 ## 👤 Author
 
 **Oluwa-feranmi**  
-DevOps & Cloud Engineering Enthusiast  
+Platform & Cloud Engineering Enthusiast, SRE, and DevOps.  
 
 GitHub: https://github.com/Oluwa-feranmi
