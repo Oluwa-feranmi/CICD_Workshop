@@ -1,8 +1,8 @@
-# 🚀 CI/CD Workshop — Production-Grade DevOps Pipeline (AWS & GitHub Actions)
+# 🚀 CI/CD Workshop — Production-Grade Pipeline (AWS & GitHub Actions)
 
 This repository demonstrates a **real-world CI/CD pipeline architecture** using **GitHub Actions**, **AWS**, and **Infrastructure as Code (IaC)** principles. It showcases production-grade DevOps practices including automated testing, cloud provisioning, and deployment automation.
 
-> Built as a hands-on portfolio project to demonstrate job-ready DevOps and Cloud Engineering skills.
+> Built as a hands-on portfolio project to demonstrate job-ready skills in SRE, Platform Engineering, DevOps, and Cloud Engineering.
 
 ---
 
@@ -15,7 +15,7 @@ This project implements a **multi-stage CI/CD deployment pipeline** that automat
 - Production environment provisioning
 - Secure cloud deployments using AWS CDK
 
-The architecture reflects **real enterprise DevOps workflows**, emphasizing:
+The architecture reflects **real enterprise workflows**, emphasizing:
 
 - Automation
 - Security
@@ -119,7 +119,7 @@ Developer → GitHub → CI Pipeline → Test (my-app) → Prod (AWS CDK) → AW
 - CI/CD pipeline engineering
 - Cloud infrastructure automation
 - AWS provisioning using CDK
-- DevOps best practices
+- Industry best practices
 - Secure deployment workflows
 - Production-grade architecture design
 
@@ -128,4 +128,4 @@ Developer → GitHub → CI Pipeline → Test (my-app) → Prod (AWS CDK) → AW
 ## 👤 Author
 
 **Oluwa-feranmi**  
-DevOps & Cloud Engineering Enthusiast 
+Platform & Cloud Engineering Enthusiast, SRE, and DevOps. 
