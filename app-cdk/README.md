@@ -2,7 +2,7 @@
 
 This directory contains the **production cloud infrastructure** for the CI/CD Workshop project, implemented using **AWS Cloud Development Kit (CDK) with Python** and Infrastructure as Code (IaC) best practices.
 
-It demonstrates how to **design, provision, and manage scalable AWS infrastructure using modern DevOps workflows.**
+It demonstrates how to **design, provision, and manage scalable AWS infrastructure using modern engineering workflows.**
 
 ---
 
@@ -10,7 +10,7 @@ It demonstrates how to **design, provision, and manage scalable AWS infrastructu
 
 This module is responsible for **automated provisioning and deployment of production infrastructure on AWS**.
 
-It is designed to reflect **real-world cloud engineering and DevOps practices**, including:
+It is designed to reflect **real-world engineering practices**, including:
 
 - Infrastructure as Code (IaC)
 - Secure cloud provisioning
