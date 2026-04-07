@@ -1,131 +1,152 @@
-# 🚀 CI/CD Workshop — Production-Grade Pipeline (AWS & GitHub Actions)
+# CI/CD Workshop — Production-Grade Pipeline (AWS CDK + CodePipeline)
 
-This repository demonstrates a **real-world CI/CD pipeline architecture** using **GitHub Actions**, **AWS**, and **Infrastructure as Code (IaC)** principles. It showcases production-grade DevOps practices including automated testing, cloud provisioning, and deployment automation.
+[![Python](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/)
+[![AWS CDK](https://img.shields.io/badge/AWS-CDK-orange)](https://aws.amazon.com/cdk/)
+[![Flask](https://img.shields.io/badge/Flask-2.0-green)](https://flask.palletsprojects.com/)
+[![Docker](https://img.shields.io/badge/Docker-blue)](https://www.docker.com/)
 
-> Built as a hands-on portfolio project to demonstrate job-ready skills in SRE, Platform Engineering, DevOps, and Cloud Engineering.
+This repository demonstrates a **complete, real-world CI/CD pipeline** using **AWS CDK (Infrastructure as Code)**, **AWS CodePipeline**, **CodeBuild**, **ECR**, and **ECS Fargate**. It showcases production-grade DevOps practices: automated testing, containerized deployment, environment separation (test/prod), and secure IaC.
 
----
-
-## 🧠 Project Overview
-
-This project implements a **multi-stage CI/CD deployment pipeline** that automates:
-
-- Continuous Integration (CI)
-- Test environment deployment
-- Production environment provisioning
-- Secure cloud deployments using AWS CDK
-
-The architecture reflects **real enterprise workflows**, emphasizing:
-
-- Automation
-- Security
-- Scalability
-- Reliability
+> Built as a hands-on portfolio project to demonstrate job-ready skills in **SRE, Platform Engineering, DevOps, and Cloud Engineering**.
 
 ---
 
 ## 🏗️ Architecture Overview
-                    ┌───────────────┐
-                    │   Developer   │
-                    └───────┬───────┘
-                            │
-                            ▼
-                  ┌───────────────────┐
-                  │   GitHub Repo     │
-                  │  (Source Control) │
-                  └─────────┬─────────┘
-                            │
-                            ▼
-              ┌──────────────────────────┐
-              │   CI Pipeline            │
-              │ (Build, Test, Validate)  │
-              └─────────┬────────────────┘
-                            │
-                            ▼
-              ┌──────────────────────────┐
-              │ Test Deployment           │
-              │       my-app/             │
-              └─────────┬────────────────┘
-                            │
-                            ▼
-              ┌──────────────────────────┐
-              │ Production Deployment     │
-              │        app-cdk/           │
-              └─────────┬────────────────┘
-                            │
-                            ▼
-                  ┌───────────────────┐
-                  │      AWS Cloud     │
-                  │ (Provisioned via   │
-                  │   AWS CDK - IaC)   │
-                  └───────────────────┘
+Developer → GitHub → AWS CodePipeline
+├── CodeBuild (test) → pytest
+├── CodeBuild (docker) → Build & push to ECR
+└── Deploy to ECS Fargate (Test → Prod)
 
-### High-Level Workflow
-Developer → GitHub → CI Pipeline → Test (my-app) → Prod (AWS CDK) → AWS Cloud
+**Key AWS Resources Provisioned via CDK**:
+- **ECR Repository** – Stores Docker images
+- **ECS Fargate Services** (Test + Production) – Runs the Flask app
+- **CodePipeline + CodeBuild** – Full CI/CD pipeline using your `buildspec_test.yml` and `buildspec_docker.yml`
 
+**Directories**:
+- **`my-app/`** – Flask web application (test & containerized deployment)
+- **`app-cdk/`** – AWS CDK stacks (ECR + ECS + Pipeline)
 
 ---
 
-## 🔧 Deployment Environments
-
-### Test Environment — `my-app/`
-
-- Handles application validation and testing
-- Ensures correctness before production release
-- Simulates CI-based test deployments
-
-### Production Environment — `app-cdk/`
-
-- Uses **AWS CDK (Cloud Development Kit)** for cloud infrastructure provisioning
-- Implements **Infrastructure as Code (IaC)**
-- Automates deployment of AWS infrastructure and services
-
----
-
-## 🚦 CI/CD Pipeline Stages
-
-1. Code checkout
-2. Automated testing
-3. Build & validation
-4. Test deployment
-5. Production infrastructure provisioning
-6. Automated AWS deployment
+## 📁 Project Structure
+CICD_Workshop/
+├── my-app/                  # Flask application + Dockerfile + tests
+│   ├── app.py               # Main Flask app (port 8081)
+│   ├── templates/           # HTML templates
+│   ├── tests/               # pytest tests
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── ...
+├── app-cdk/                 # AWS CDK Infrastructure as Code
+│   ├── app.py               # Entry point (defines all stacks)
+│   ├── app_cdk/             # Stack definitions (ECR, ECS, Pipeline)
+│   ├── tests/
+│   ├── cdk.json
+│   └── requirements.txt
+├── buildspec_test.yml       # CodeBuild stage: run pytest
+├── buildspec_docker.yml     # CodeBuild stage: build & push Docker image
+└── README.md
 
 ---
 
-## 🔐 Security & Best Practices
+## 🚀 How to Run Locally (Recruiter Quick Start)
 
-- GitHub encrypted secrets for credential management
-- Infrastructure as Code for repeatability
-- Environment separation (test & production)
-- Fully automated deployments
-- No credentials committed to source control
+### 1. Clone the repository
+```bash
+git clone https://github.com/Oluwa-feranmi/CICD_Workshop.git
+cd CICD_Workshop
+```
+### 2. Run the Flask App Locally (no AWS required)
+cd my-app
 
----
+# Option A: Python virtual environment
+```bash
+python -m venv .venv
+source .venv/bin/activate      # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
+# App will be live at http://localhost:8081
+# Health check: http://localhost:8081/healthcheck
+```
+# Option B: Docker (exactly as deployed in pipeline)
+```bash
+cd my-app
+docker build -t myapp:latest .
+docker run -p 8081:8081 myapp:latest
+```
+### 3. Run Tests Locally
+```bash
+cd my-app
+python -m pytest --junitxml=pytest_reports/junit.xml
+```
+### 4. Deploy the Full Infrastructure to AWS (Production Pipeline)
+Prerequisites:
 
-## 🛠️ Technologies Used
+AWS account with admin permissions
+AWS CLI configured (aws configure)
+AWS CDK installed (npm install -g aws-cdk)
+Python 3.9+
+```bash
+cd app-cdk
 
-- GitHub Actions
-- AWS CDK
-- AWS Cloud Services
-- YAML
-- Linux Shell Scripting
-- Infrastructure as Code (IaC)
+# 1. Create virtual environment
+python -m venv .venv
+source .venv/bin/activate      # Windows: .venv\Scripts\activate
 
----
+# 2. Install dependencies
+pip install -r requirements.txt
 
-## 🎯 Skills Demonstrated
+# 3. Bootstrap CDK (one-time)
+cdk bootstrap
 
-- CI/CD pipeline engineering
-- Cloud infrastructure automation
-- AWS provisioning using CDK
-- Industry best practices
-- Secure deployment workflows
-- Production-grade architecture design
+# 4. Deploy everything (ECR + ECS Test/Prod + Pipeline)
+cdk deploy --all
+```
+After deployment you will get:
 
----
+ECR repository URL
+Two ECS Fargate services (test + prod)
+A fully functional CodePipeline that triggers on code changes
 
-## 👤 Author
+⚠️ Note: This will incur small AWS costs (Fargate, ECR, etc.). Destroy with cdk destroy --all when finished.
+🔄 CI/CD Pipeline Stages (What Happens on git push)
 
-**Oluwa-feranmi**  
-Platform & Cloud Engineering Enthusiast, SRE, and DevOps. 
+Source – Code pulled from GitHub
+Test (buildspec_test.yml) – cd my-app → pytest → JUnit report
+Build & Push (buildspec_docker.yml) – Builds Docker image → pushes to ECR
+Deploy Test – Updates ECS Fargate service in test environment
+Deploy Production – Manual approval gate → updates production ECS service
+
+
+🛠️ Technologies Used
+
+Backend: Flask (Python)
+IaC: AWS CDK (Python)
+Container: Docker
+CI/CD: AWS CodePipeline + CodeBuild
+Runtime: ECS Fargate
+Registry: Amazon ECR
+Testing: pytest
+
+
+✅ Skills Demonstrated
+
+End-to-end CI/CD pipeline engineering
+Infrastructure as Code with AWS CDK
+Containerized deployments (Docker → ECR → ECS Fargate)
+Environment separation (Test vs Production)
+Secure, automated, and observable release process
+Production-grade DevOps best practices
+
+
+👤 Author
+Oluwa-feranmi
+Platform & Cloud Engineering Enthusiast | SRE | DevOps Engineer
+
+GitHub: @Oluwa-feranmi
+
+
+Ready to see it in action?
+Clone → run locally → or deploy the full AWS pipeline with one cdk deploy command.
+This project is intentionally built to be easy for developers to evaluate — just follow the steps above!
+Happy coding! 🚀
