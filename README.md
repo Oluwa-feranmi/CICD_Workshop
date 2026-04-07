@@ -29,26 +29,27 @@ Developer → GitHub → AWS CodePipeline
 ---
 
 ## 📁 Project Structure
+```bash
 CICD_Workshop/
-├── my-app/                  # Flask application + Dockerfile + tests
-│   ├── app.py               # Main Flask app (port 8081)
-│   ├── templates/           # HTML templates
-│   ├── tests/               # pytest tests
-│   ├── Dockerfile
+├── .gitignore
+├── README.md
+├── buildspec_docker.yml          # Builds Docker image and pushes to ECR
+├── buildspec_test.yml            # Runs pytest and generates reports
+├── my-app/                       # Flask web application (Test environment)
+│   ├── app.py                    # Main Flask app
 │   ├── requirements.txt
-│   └── ...
-├── app-cdk/                 # AWS CDK Infrastructure as Code
-│   ├── app.py               # Entry point (defines all stacks)
-│   ├── app_cdk/             # Stack definitions (ECR, ECS, Pipeline)
-│   ├── tests/
+│   ├── Dockerfile
+│   ├── templates/                # HTML templates (if present)
+│   └── tests/                    # pytest tests
+├── app-cdk/                      # AWS CDK Infrastructure as Code (Production)
+│   ├── app.py                    # CDK app entry point
+│   ├── app_cdk/                  # Stack definitions (ECR, ECS, Pipeline)
+│   ├── requirements.txt
 │   ├── cdk.json
-│   └── requirements.txt
-├── buildspec_test.yml       # CodeBuild stage: run pytest
-├── buildspec_docker.yml     # CodeBuild stage: build & push Docker image
-└── README.md
-
+│   └── tests/
+└── ...
 ---
-
+```
 ## 🚀 How to Run Locally (Recruiter Quick Start)
 
 ### 1. Clone the repository
