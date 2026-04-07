@@ -58,8 +58,9 @@ git clone https://github.com/Oluwa-feranmi/CICD_Workshop.git
 cd CICD_Workshop
 ```
 ### 2. Run the Flask App Locally (no AWS required)
+```bash
 cd my-app
-
+```
 # Option A: Python virtual environment
 ```bash
 python -m venv .venv
