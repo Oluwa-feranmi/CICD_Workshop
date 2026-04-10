@@ -17,6 +17,21 @@ Developer → GitHub → AWS CodePipeline
 ├── CodeBuild (docker) → Build & push to ECR
 └── Deploy to ECS Fargate (Test → Prod)
 
+## 🏗️ Architecture
+
+```mermaid
+flowchart TD
+    A[GitHub] --> B[CodePipeline]
+    B --> C[Test Stage\nbuildspec_test.yml\npytest]
+    C --> D[Build Stage\nbuildspec_docker.yml\nDocker Build → ECR]
+    D --> E[Deploy Test\nECS Fargate Test]
+    E --> F[Manual Approval]
+    F --> G[Deploy Prod\nECS Fargate Production]
+    H[Flask App\nmy-app/] --> A
+    I[CDK Stacks\napp-cdk/] --> B
+    style B fill:#FF9900,stroke:#232F3E,color:white
+```
+
 **Key AWS Resources Provisioned via CDK**:
 - **ECR Repository** – Stores Docker images
 - **ECS Fargate Services** (Test + Production) – Runs the Flask app
